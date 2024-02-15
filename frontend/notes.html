@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes Interface</title>
+</head>
+<body>
+    <h2>Notes are available in console</h2>
+    <div id="parent">
+    
+
+    </div>
+    <button onclick="handleNOte()"> Add a Note</button>
+    
+</body>
+<script>
+    const getNotes = ()=>{
+        fetch("https://weak-puce-caiman-shoe.cyclic.app/notes",{
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            }
+        }).then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
+        .catch(err => console.log(err))
+    }
+
+    const handleNOte = ()=>{
+       window.location.href = "addNote.html"
+    }
+
+    getNotes()
+</script>
+</html>

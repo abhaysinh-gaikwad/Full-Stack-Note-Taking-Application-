@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<body>
+    
+
+    <input type="text" placeholder="Enter your email" id="email">
+    <input type="text" placeholder="Enter your password" id="pass">
+    <button onclick="login()">login</button>
+</body>
+<script>
+    const login = async ()=>{
+
+        const email = document.getElementById("email").value
+        const pass = document.getElementById("pass").value  
+
+        const payload = {
+            email,
+            pass
+        }
+        console.log(payload)
+
+        // connection to the be 
+        fetch("https://firstbackend-0g2r.onrender.com/users/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        }).then(res => res.json())
+        .then(data => {
+            console.log(data)
+            localStorage.setItem("token", data.token)
+        })
+        .catch(err => console.log(err))
+        
+        setTimeout(() => {
+            window.location.href = "notes.html"   
+        },3000)
+    }
+
+</script>
+</html>

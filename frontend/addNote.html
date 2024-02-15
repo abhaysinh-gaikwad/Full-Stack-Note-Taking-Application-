@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add a Note</title>
+  </head>
+  <body>
+    <h2>Add a Note</h2>
+    <input type="text" placeholder="Enter your Title" id="title" />
+    <textarea type="text" placeholder="Enter your Note" id="body"></textarea>
+    <button onclick="handleNoteAddtion()">Add a Note</button>
+  </body>
+  <script>
+    const handleNoteAddtion = async () => {
+      const title = document.getElementById("title").value;
+      const body = document.getElementById("body").value;
+
+      const payload = {
+        title,
+        body,
+      };
+      console.log(payload);
+
+      // connection to the be
+
+      fetch("https://weak-puce-caiman-shoe.cyclic.app/notes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => console.log(err));
+    };
+  </script>
+</html>
